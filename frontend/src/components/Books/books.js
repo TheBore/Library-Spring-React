@@ -15,6 +15,7 @@ class Books extends React.Component{
     }
 
     render() {
+
         const offset = this.state.size * this.state.page;
         const nextPageOffset = offset + this.state.size;
         const pageCount = Math.ceil(this.props.books.length / this.state.size);
@@ -46,11 +47,14 @@ class Books extends React.Component{
                         </div>
                     </div>
                 </div>
-                <ReactPaginate previousLabel={"back"}
-                               nextLabel={"next"}
+                <ReactPaginate previousLabel={"← back"}
+                               previousClassName={"btn btn-light"}
+                               nextLabel={"next →"}
+                               nextClassName={"btn btn-light"}
                                breakLabel={<a href="/#">...</a>}
                                breakClassName={"break-me"}
-                               pageClassName={"ml-1"}
+                               pageClassName={"ml-2 mr-2"}
+                               pageLinkClassName={"btn btn-light"}
                                pageCount={pageCount}
                                marginPagesDisplayed={2}
                                pageRangeDisplayed={5}
@@ -69,16 +73,18 @@ class Books extends React.Component{
     }
 
     getBooksPage = (offset, nextPageOffset) => {
-        return this.props.books.map((data) => {
-            return(
-                <BookTerm term={data} onDelete={this.props.onDelete}
-                          onEdit={this.props.onEdit}
-                          onTakeCopy={this.props.onTakeCopy}
-                />
-            )
-        }).filter((book,index) => {
-            return index >= offset && index < nextPageOffset;
-        })
+        return this.props.books
+            .sort((a,b) => a.id < b.id ? 1 : -1)
+            .map((data,index) => {
+                return(
+                    <BookTerm term={data} onDelete={this.props.onDelete}
+                              onEdit={this.props.onEdit}
+                              onTakeCopy={this.props.onTakeCopy}
+                    />
+                )
+            }).filter((book,index) => {
+                return index >= offset && index < nextPageOffset;
+            })
     }
 
 }

@@ -17,15 +17,11 @@ public class Country {
 
     private String continent;
 
-    @OneToMany(mappedBy = "country")
-    private List<Author> authors;
-
     public Country() {
     }
 
-    public Country(String name, String continent, List<Author> authors) {
+    public Country(String name, String continent) {
         this.name = name;
         this.continent = continent;
-        this.authors = authors;
     }
 }

@@ -1,5 +1,5 @@
 import './App.css';
-import React, {Component} from "react";
+import React, {Component} from 'react';
 import Header from '../Header/header';
 import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
 import Books from '../Books/books'
@@ -27,20 +27,20 @@ class App extends Component{
           <main>
             <div className="container">
               <Route path={"/books"} exact render={() =>
-                  <Books books={this.state.books}
-                         onDelete={this.deleteBook}
-                         onEdit={this.getBook}
-                         onTakeCopy={this.takeCopy}/>}/>
+                <Books books={this.state.books}
+                       onDelete={this.deleteBook}
+                       onEdit={this.getBook}
+                       onTakeCopy={this.takeCopy}/>}/>
               <Route path={"/categories"} exact render={() =>
                   <Categories categories={this.state.categories}/>}/>
               <Route path={"/books/add"} exact render={() =>
                   <BooksAdd authors={this.state.authors}
                             categories={this.state.categories}
-                            onAddProduct={this.addBook}/>}/>
+                            onAddBook={this.addBook}/>}/>
               <Route path={"/books/edit/:id"} exact render={() =>
                   <BooksEdit categories={this.state.categories}
                              authors={this.state.authors}
-                             onEditProduct={this.editBook}
+                             onEditBook={this.editBook}
                              book={this.state.selectedBook}/>}/>
               <Redirect to={"/books"}/>
             </div>
@@ -113,6 +113,12 @@ class App extends Component{
           });
   }
 
+  editBook = (id,name,category,author,availableCopies) => {
+      LibraryService.editBook(id,name,category,author,availableCopies)
+          .then(() => {
+              this.loadBooks();
+          })
+  }
 
 }
 

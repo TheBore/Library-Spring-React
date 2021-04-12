@@ -59,10 +59,10 @@ public class BookServiceImpl implements BookService {
                 findById(bookDto.getAuthor()).
                 orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthor()));
 
-        book.setName(book.getName());
-        book.setCategory(book.getCategory());
+        book.setName(bookDto.getName());
+        book.setCategory(bookDto.getCategory());
         book.setAuthor(author);
-        book.setAvailableCopies(book.getAvailableCopies());
+        book.setAvailableCopies(bookDto.getAvailableCopies());
         this.bookRepository.save(book);
         return Optional.of(book);
     }

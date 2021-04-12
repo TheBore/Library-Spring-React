@@ -2,8 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const bookTerm = (props) => {
+
     return (
-        <tr>
+        <tr key={props.term.id}>
             <td>{props.term.name}</td>
             <td>{props.term.author.name}</td>
             <td>{props.term.category}</td>
@@ -18,8 +19,8 @@ const bookTerm = (props) => {
                       to={`/books/edit/${props.term.id}`}>
                     Edit
                 </Link>
-                <button title={"Take copy"} className={"btn btn-info"}
-                   onClick={() => props.takeCopy(props.term.id)}>
+                <button title={"Take copy"} className={"btn btn-warning ml-2"}
+                        onClick={() => props.onTakeCopy(props.term.id)}>
                     Take copy
                 </button>
             </td>

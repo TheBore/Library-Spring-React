@@ -22,9 +22,6 @@ public class Author {
     @ManyToOne
     private Country country;
 
-    @OneToMany(mappedBy = "author")
-    private List<Book> books;
-
     public Author() {
 
     }
